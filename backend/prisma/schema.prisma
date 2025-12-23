@@ -1,0 +1,25 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// User Table: Stores balances
+model User {
+  id      Int     @id @default(autoincrement())
+  name    String
+  balance Float   @default(1000.0)
+}
+
+// Audit Log: Mandatory and Immutable records
+model AuditLog {
+  id         Int      @id @default(autoincrement())
+  senderId   Int
+  receiverId Int
+  amount     Float
+  status     String   // "SUCCESS" or "FAILED"
+  timestamp  DateTime @default(now())
+}
